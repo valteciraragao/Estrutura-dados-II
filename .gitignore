@@ -74,3 +74,6 @@ Projeto_reino_atentia/reino
 *.exe
 *.o
 a.out
+
+# Configuração local do Claude Code (não vai para o repositório)
+.claude/
