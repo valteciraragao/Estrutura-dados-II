@@ -136,16 +136,16 @@ class Grafo {
     void mostrarMatriz() {
         cout << "\n\tMatriz de Adjacências:\n";
 
-        cout << "\t     ";
+        cout << "\t"; //coluna dos índices das linhas
         for (int j = 0; j < numVertices; j++) {
-            cout << j << "   ";
+            cout << "\t" << j;
         }
         cout << "\n";
 
         for (int i = 0; i < numVertices; i++) {
-            cout << "\t" << i << "  ";
+            cout << "\t" << i;
             for (int j = 0; j < numVertices; j++) {
-                cout << "  " << matrizAdj[i][j] << " ";
+                cout << "\t" << matrizAdj[i][j];
             }
             cout << "\n";
         }
