@@ -44,10 +44,11 @@ Durante uma pergunta, digite **P** para abrir o menu de poderes:
 |---|---|---|
 | 1 | Matemática | Vale dos Números, Ponte da Soma, Moinho da Tabuada |
 | 2 | Português | Biblioteca Encantada, Jardim das Palavras, Torre dos Verbos |
-| 3 | Lógica | Labirinto dos Enigmas, Portal do Dragão Sábio |
+| 3 | Leitura | Bosque das Histórias, Rio dos Contos, Cabana do Contador |
+| 4 | Lógica | Labirinto dos Enigmas, Portal do Dragão Sábio |
 | Fim | – | Castelo de Atentia (vitória) ou Floresta do Esquecimento (derrota) |
 
-O nível 3 tem só duas chances, para a dificuldade aumentar no final.
+O nível 4 tem só duas chances, para a dificuldade aumentar no final.
 
 ## Área do administrador
 
@@ -64,7 +65,7 @@ Os dados valem enquanto o programa está aberto.
 | Estrutura | Onde é usada |
 |---|---|
 | **Grafo direcionado** (matriz de adjacências) | O mapa do reino. Cada local é um vértice. A aresta de **peso 1** leva quem acerta e a de **peso 2** leva quem erra. Cada vértice guarda só a **chave** da pergunta sorteada. |
-| **Tabela hash: desafios** (encadeamento externo) | Banco com as 24 perguntas, buscadas pela chave (ex.: `MAT-01`). Função hash: soma dos códigos ASCII da chave, módulo 11. |
+| **Tabela hash: desafios** (encadeamento externo) | Banco com as 32 perguntas, buscadas pela chave (ex.: `MAT-01`). Função hash: soma dos códigos ASCII da chave, módulo 11. |
 | **Tabela hash: poderes** (encadeamento externo) | Custo e efeito de cada poder, buscados pelo nome. |
 | **Fila** | Busca em largura (BFS): mostra o caminho perfeito, o menor até o castelo. |
 | **Pilha** | Busca em profundidade (DFS): mostra o caminho mais longo possível até o castelo. |
@@ -72,6 +73,6 @@ Os dados valem enquanto o programa está aberto.
 ### Decisões de projeto
 
 - **O grafo guarda só a chave, e a pergunta fica na hash.** As perguntas são sorteadas sem repetição a cada partida, então o mesmo mapa gera partidas diferentes sem duplicar dados.
-- **O fator de carga da tabela de desafios é cerca de 2,18** (24 perguntas em 11 posições). Isso mostra que, no encadeamento externo, ele pode passar de 1.
+- **O fator de carga da tabela de desafios é cerca de 2,9** (32 perguntas em 11 posições). Isso mostra que, no encadeamento externo, ele pode passar de 1.
 - **O desempenho por matéria vem de uma varredura completa da tabela hash de desafios.** Cada pergunta guarda os seus acertos e erros, e a soma é feita por matéria.
 - **A jogabilidade foi ajustada depois de um teste com uma criança.** A resposta virou o padrão da tela e os poderes ficaram atrás da letra P. O tempo passou a afetar só o prêmio, e o jogo pede ENTER antes de limpar a tela.
