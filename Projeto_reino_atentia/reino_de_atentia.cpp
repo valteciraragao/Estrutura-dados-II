@@ -425,7 +425,11 @@ class TabelaDesafios {
                 cout << "\tAcerto: -\n";
             }
         }
-        cout << "\n\t>> Matéria com mais dificuldade: " << categorias[pior] << "\n";
+        if (piorPercentual < 100) {
+            cout << "\n\t>> Matéria com mais dificuldade: " << categorias[pior] << "\n";
+        } else {
+            cout << "\n\t>> Nenhuma matéria com dificuldade até agora!\n";
+        }
     }
 
     void mostrarTabela() {
