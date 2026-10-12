@@ -778,9 +778,7 @@ void jogar(Grafo &grafo, TabelaDesafios &tabelaDesafios, TabelaPoderes &tabelaPo
 
                 if (nomePoder != "") {
                     Poder* poder = tabelaPoderes.buscar(nomePoder);
-                    if (poder == NULL) {
-                        cout << "\n\tEsse poder não existe.\n";
-                    } else if (cristais < poder->custo) {
+                    if (cristais < poder->custo) {
                         cout << "\n\tVocê não tem cristais suficientes para usar " << nomePoder << ".\n";
                     } else if (nomePoder == "DICA") {
                         cristais = cristais - poder->custo;
