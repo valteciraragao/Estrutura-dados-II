@@ -11,7 +11,7 @@
 #include <ctime>
 using namespace std;
 
-const int MAX_VERTICES = 10;
+const int MAX_VERTICES = 13;
 
 struct Desafio {
     string chave;
@@ -377,14 +377,14 @@ class TabelaDesafios {
     }
 
     void mostrarDesempenho() {
-        string categorias[3] = {"Matemática", "Português", "Lógica"};
-        int acertos[3] = {0, 0, 0};
-        int erros[3] = {0, 0, 0};
+        string categorias[4] = {"Matemática", "Português", "Leitura", "Lógica"};
+        int acertos[4] = {0, 0, 0, 0};
+        int erros[4] = {0, 0, 0, 0};
 
         for (int i = 0; i < MAX; i++) {
             No* temp = tabelaHash[i];
             while (temp != NULL) {
-                for (int c = 0; c < 3; c++) {
+                for (int c = 0; c < 4; c++) {
                     if (temp->item.categoria == categorias[c]) {
                         acertos[c] = acertos[c] + temp->item.acertos;
                         erros[c] = erros[c] + temp->item.erros;
@@ -397,7 +397,7 @@ class TabelaDesafios {
         cout << "\n\tDesempenho por matéria:\n";
 
         int totalRespondidas = 0;
-        for (int c = 0; c < 3; c++) {
+        for (int c = 0; c < 4; c++) {
             totalRespondidas = totalRespondidas + acertos[c] + erros[c];
         }
         if (totalRespondidas == 0) {
@@ -407,11 +407,11 @@ class TabelaDesafios {
 
         int pior = -1; //matéria com menor % de acerto
         int piorPercentual = 0;
-        for (int c = 0; c < 3; c++) {
+        for (int c = 0; c < 4; c++) {
             int respondidas = acertos[c] + erros[c];
             cout << "\t" << categorias[c] << "\t";
-            if (c == 2) {
-                cout << "\t"; //alinha a coluna de Lógica
+            if (c >= 2) {
+                cout << "\t"; //alinha a coluna de Leitura e Lógica
             }
             cout << "Respondidas: " << respondidas << "\tAcertos: " << acertos[c];
             if (respondidas > 0) {
@@ -600,7 +600,7 @@ string sortearSemRepetir(string pool[], bool usados[], int tamanho) {
 }
 
 void carregarBanco(TabelaDesafios &tabela) {
-    Desafio banco[24] = {
+    Desafio banco[32] = {
         {"MAT-01", "Matemática", "Quanto é 7 + 8?", "15", "Conte a partir do 8.", 1, 30, 2, 0, 0},
         {"MAT-02", "Matemática", "Quanto é 9 x 6?", "54", "Pense em 9 grupos de 6.", 1, 30, 2, 0, 0},
         {"MAT-03", "Matemática", "Maria tinha 23 figurinhas e ganhou mais 17. Com quantas ficou?", "40", "Some as dezenas e depois as unidades.", 1, 40, 2, 0, 0},
@@ -619,17 +619,26 @@ void carregarBanco(TabelaDesafios &tabela) {
         {"POR-07", "Português", "Qual é o plural de \"papel\"?", "papéis|papeis", "Troque o \"l\" final pelo som \"is\".", 2, 25, 3, 0, 0},
         {"POR-08", "Português", "Qual é o sujeito de \"As crianças brincam no parque\"?", "as crianças|crianças|as criancas|criancas", "É quem faz a ação de brincar.", 2, 30, 3, 0, 0},
 
-        {"LOG-01", "Lógica", "Complete a sequência: 2, 4, 6, 8, ___", "10", "Cada número aumenta de 2 em 2.", 3, 35, 4, 0, 0},
-        {"LOG-02", "Lógica", "Se hoje é quarta-feira, que dia será depois de amanhã?", "sexta-feira|sexta|sexta feira", "Conte dois dias a partir de hoje.", 3, 35, 4, 0, 0},
-        {"LOG-03", "Lógica", "Complete a sequência: 3, 6, 12, 24, ___", "48", "Cada número é o dobro do anterior.", 3, 40, 4, 0, 0},
-        {"LOG-04", "Lógica", "João é mais alto que Pedro, e Pedro é mais alto que Ana. Quem é o mais baixo?", "ana", "Compare os três em ordem.", 3, 40, 4, 0, 0},
-        {"LOG-05", "Lógica", "Qual não pertence ao grupo: quadrado, círculo, triângulo, cachorro?", "cachorro", "Três delas são formas geométricas.", 3, 30, 4, 0, 0},
-        {"LOG-06", "Lógica", "Se A=1, B=2, C=3, quanto vale a soma das letras da palavra AC?", "4|quatro", "Some o valor de cada letra.", 3, 40, 4, 0, 0},
-        {"LOG-07", "Lógica", "Todos os gatos são animais. Frajola é um gato. O que é Frajola?", "um animal|animal", "Aplique a regra geral ao caso específico.", 3, 35, 4, 0, 0},
-        {"LOG-08", "Lógica", "Se hoje é dia 10, que dia será depois de amanhã?", "12|dia 12", "Some dois dias à data de hoje.", 3, 30, 4, 0, 0}
+        {"LEI-01", "Leitura", "Lia acordou cedo, tomou café e foi para a escola de bicicleta. No caminho, parou para fazer carinho num cachorro.\n\n\tComo Lia foi para a escola?\n\t  1 - a pé\n\t  2 - de bicicleta\n\t  3 - de ônibus", "2|de bicicleta|bicicleta", "Leia de novo a primeira frase.", 3, 45, 4, 0, 0},
+        {"LEI-02", "Leitura", "Pedro plantou um feijão num copo com algodão e regou todos os dias. Depois de uma semana, nasceu uma plantinha.\n\n\tQuanto tempo a plantinha demorou para nascer?\n\t  1 - um dia\n\t  2 - um mês\n\t  3 - uma semana", "3|uma semana", "Procure no texto uma palavra que fala de tempo.", 3, 45, 4, 0, 0},
+        {"LEI-03", "Leitura", "A mãe de Bia fez um bolo de chocolate para o aniversário dela. Bia convidou as amigas Carla, Duda e Rafa.\n\n\tQuantas amigas Bia convidou?\n\t  1 - duas\n\t  2 - três\n\t  3 - quatro", "2|três|tres", "Conte os nomes das amigas no texto.", 3, 45, 4, 0, 0},
+        {"LEI-04", "Leitura", "Choveu muito durante a tarde. Por isso, o jogo de futebol da turma foi adiado para sábado.\n\n\tPor que o jogo foi adiado?\n\t  1 - porque choveu\n\t  2 - porque a bola furou\n\t  3 - porque era feriado", "1", "A resposta está na primeira frase.", 3, 45, 4, 0, 0},
+        {"LEI-05", "Leitura", "O gato Mingau gosta de dormir em cima da geladeira, porque lá é quentinho.\n\n\tPor que Mingau dorme em cima da geladeira?\n\t  1 - porque é alto\n\t  2 - porque é quentinho\n\t  3 - porque tem comida", "2", "Procure a palavra \"porque\" no texto.", 3, 45, 4, 0, 0},
+        {"LEI-06", "Leitura", "Ana guardou o dinheiro da mesada por três meses. Com ele, comprou um livro de aventuras.\n\n\tO que Ana comprou?\n\t  1 - um brinquedo\n\t  2 - uma bola\n\t  3 - um livro", "3|um livro|livro", "Leia de novo a segunda frase.", 3, 45, 4, 0, 0},
+        {"LEI-07", "Leitura", "Na feira, João comprou maçãs e bananas. As bananas eram para a vovó, que adora vitamina.\n\n\tPara quem eram as bananas?\n\t  1 - para João\n\t  2 - para a vovó\n\t  3 - para a mãe", "2|vovó|vovo|a vovó|a vovo", "Quem adora vitamina?", 3, 45, 4, 0, 0},
+        {"LEI-08", "Leitura", "Quando o sinal tocou, as crianças correram para o pátio. Era hora do recreio!\n\n\tPor que as crianças correram para o pátio?\n\t  1 - estava chovendo\n\t  2 - era hora do recreio\n\t  3 - a aula acabou", "2|recreio", "Leia a última frase do texto.", 3, 45, 4, 0, 0},
+
+        {"LOG-01", "Lógica", "Complete a sequência: 2, 4, 6, 8, ___", "10", "Cada número aumenta de 2 em 2.", 4, 35, 5, 0, 0},
+        {"LOG-02", "Lógica", "Se hoje é quarta-feira, que dia será depois de amanhã?", "sexta-feira|sexta|sexta feira", "Conte dois dias a partir de hoje.", 4, 35, 5, 0, 0},
+        {"LOG-03", "Lógica", "Complete a sequência: 3, 6, 12, 24, ___", "48", "Cada número é o dobro do anterior.", 4, 40, 5, 0, 0},
+        {"LOG-04", "Lógica", "João é mais alto que Pedro, e Pedro é mais alto que Ana. Quem é o mais baixo?", "ana", "Compare os três em ordem.", 4, 40, 5, 0, 0},
+        {"LOG-05", "Lógica", "Qual não pertence ao grupo: quadrado, círculo, triângulo, cachorro?", "cachorro", "Três delas são formas geométricas.", 4, 30, 5, 0, 0},
+        {"LOG-06", "Lógica", "Se A=1, B=2, C=3, quanto vale a soma das letras da palavra AC?", "4|quatro", "Some o valor de cada letra.", 4, 40, 5, 0, 0},
+        {"LOG-07", "Lógica", "Todos os gatos são animais. Frajola é um gato. O que é Frajola?", "um animal|animal", "Aplique a regra geral ao caso específico.", 4, 35, 5, 0, 0},
+        {"LOG-08", "Lógica", "Se hoje é dia 10, que dia será depois de amanhã?", "12|dia 12", "Some dois dias à data de hoje.", 4, 30, 5, 0, 0}
     };
 
-    for (int i = 0; i < 24; i++) {
+    for (int i = 0; i < 32; i++) {
         tabela.inserir(banco[i]);
     }
 }
@@ -652,23 +661,30 @@ void montarMapa(Grafo &grafo) {
     grafo.adicionarAresta(1, 3, 1);
     grafo.adicionarAresta(1, 2, 2);
     grafo.adicionarAresta(2, 3, 1);
-    grafo.adicionarAresta(2, 9, 2);
+    grafo.adicionarAresta(2, 12, 2);
     grafo.adicionarAresta(3, 6, 1);
     grafo.adicionarAresta(3, 4, 2);
     grafo.adicionarAresta(4, 6, 1);
     grafo.adicionarAresta(4, 5, 2);
     grafo.adicionarAresta(5, 6, 1);
-    grafo.adicionarAresta(5, 9, 2);
-    grafo.adicionarAresta(6, 8, 1);
+    grafo.adicionarAresta(5, 12, 2);
+    grafo.adicionarAresta(6, 9, 1);
     grafo.adicionarAresta(6, 7, 2);
-    grafo.adicionarAresta(7, 8, 1);
-    grafo.adicionarAresta(7, 9, 2);
+    grafo.adicionarAresta(7, 9, 1);
+    grafo.adicionarAresta(7, 8, 2);
+    grafo.adicionarAresta(8, 9, 1);
+    grafo.adicionarAresta(8, 12, 2);
+    grafo.adicionarAresta(9, 11, 1);
+    grafo.adicionarAresta(9, 10, 2);
+    grafo.adicionarAresta(10, 11, 1);
+    grafo.adicionarAresta(10, 12, 2);
 }
 
 void mostrarComoJogar() {
     cout << "\n\tCOMO JOGAR\n";
     cout << "\n\tVocê vai viajar pelo Reino de Atentia até chegar ao Castelo.\n";
-    cout << "\tEm cada lugar, responda uma pergunta de Matemática, Português ou Lógica.\n";
+    cout << "\tEm cada lugar, responda uma pergunta de Matemática, Português, Leitura ou Lógica.\n";
+    cout << "\tNas perguntas de Leitura, leia o texto com calma e digite o número da resposta certa.\n";
     cout << "\tDigite a sua resposta e aperte ENTER.\n";
     cout << "\tSe acertar, você avança para um lugar mais perto do castelo.\n";
     cout << "\tSe errar, você vai para outro lugar do mesmo nível e pode tentar de novo.\n";
@@ -695,14 +711,17 @@ string montarTrilhaTexto(Grafo &grafo, int trilha[], int totalTrilha) {
 void jogar(Grafo &grafo, TabelaDesafios &tabelaDesafios, TabelaPoderes &tabelaPoderes) {
     string poolMat[8] = {"MAT-01", "MAT-02", "MAT-03", "MAT-04", "MAT-05", "MAT-06", "MAT-07", "MAT-08"};
     string poolPor[8] = {"POR-01", "POR-02", "POR-03", "POR-04", "POR-05", "POR-06", "POR-07", "POR-08"};
+    string poolLei[8] = {"LEI-01", "LEI-02", "LEI-03", "LEI-04", "LEI-05", "LEI-06", "LEI-07", "LEI-08"};
     string poolLog[8] = {"LOG-01", "LOG-02", "LOG-03", "LOG-04", "LOG-05", "LOG-06", "LOG-07", "LOG-08"};
 
     bool usadosMat[8];
     bool usadosPor[8];
+    bool usadosLei[8];
     bool usadosLog[8];
     for (int i = 0; i < 8; i++) {
         usadosMat[i] = false;
         usadosPor[i] = false;
+        usadosLei[i] = false;
         usadosLog[i] = false;
     }
 
@@ -712,7 +731,10 @@ void jogar(Grafo &grafo, TabelaDesafios &tabelaDesafios, TabelaPoderes &tabelaPo
     for (int v = 3; v <= 5; v++) {
         grafo.definirChave(v, sortearSemRepetir(poolPor, usadosPor, 8));
     }
-    for (int v = 6; v <= 7; v++) {
+    for (int v = 6; v <= 8; v++) {
+        grafo.definirChave(v, sortearSemRepetir(poolLei, usadosLei, 8));
+    }
+    for (int v = 9; v <= 10; v++) {
         grafo.definirChave(v, sortearSemRepetir(poolLog, usadosLog, 8));
     }
 
@@ -724,13 +746,13 @@ void jogar(Grafo &grafo, TabelaDesafios &tabelaDesafios, TabelaPoderes &tabelaPo
     totalTrilha++;
     string pausa;
 
-    while (atual != 8 && atual != 9) {
+    while (atual != 11 && atual != 12) {
         limparTela();
 
         Desafio* desafio = tabelaDesafios.buscar(grafo.obterChave(atual));
         if (desafio == NULL) {
             cout << "\n\tOps! Esse local perdeu sua pergunta. Você foi levado para a Floresta do Esquecimento.\n";
-            atual = 9;
+            atual = 12;
             trilha[totalTrilha] = atual;
             totalTrilha++;
             break;
@@ -798,7 +820,10 @@ void jogar(Grafo &grafo, TabelaDesafios &tabelaDesafios, TabelaPoderes &tabelaPo
                             if (desafio->nivel == 2 && !usadosPor[i]) {
                                 livres++;
                             }
-                            if (desafio->nivel == 3 && !usadosLog[i]) {
+                            if (desafio->nivel == 3 && !usadosLei[i]) {
+                                livres++;
+                            }
+                            if (desafio->nivel == 4 && !usadosLog[i]) {
                                 livres++;
                             }
                         }
@@ -811,6 +836,8 @@ void jogar(Grafo &grafo, TabelaDesafios &tabelaDesafios, TabelaPoderes &tabelaPo
                                 novaChave = sortearSemRepetir(poolMat, usadosMat, 8);
                             } else if (desafio->nivel == 2) {
                                 novaChave = sortearSemRepetir(poolPor, usadosPor, 8);
+                            } else if (desafio->nivel == 3) {
+                                novaChave = sortearSemRepetir(poolLei, usadosLei, 8);
                             } else {
                                 novaChave = sortearSemRepetir(poolLog, usadosLog, 8);
                             }
@@ -864,7 +891,7 @@ void jogar(Grafo &grafo, TabelaDesafios &tabelaDesafios, TabelaPoderes &tabelaPo
 
         int proximo = grafo.proximoVertice(atual, peso);
         if (proximo == -1) {
-            proximo = 9;
+            proximo = 12;
         }
         cout << "\tVocê seguiu para: " << grafo.nomeVertice(proximo) << "\n";
         cout << "\n\tAperte ENTER para continuar...";
@@ -876,7 +903,7 @@ void jogar(Grafo &grafo, TabelaDesafios &tabelaDesafios, TabelaPoderes &tabelaPo
     }
 
     limparTela();
-    if (atual == 8) {
+    if (atual == 11) {
         cout << "\n\t*** VITÓRIA! ***\n";
         cout << "\tVocê chegou ao Castelo de Atentia! O reino está salvo!\n";
     } else {
@@ -888,7 +915,7 @@ void jogar(Grafo &grafo, TabelaDesafios &tabelaDesafios, TabelaPoderes &tabelaPo
     cout << "\tSua trilha: " << montarTrilhaTexto(grafo, trilha, totalTrilha) << "\n";
 
     cout << "\n\tCaminho perfeito (o mais curto possível):\n";
-    grafo.buscaEmLarguraCaminho(0, 8);
+    grafo.buscaEmLarguraCaminho(0, 11);
 
     cout << "\n\tAperte ENTER para continuar...";
     getline(cin, pausa);
@@ -903,6 +930,7 @@ int main() {
     string nomesVertices[MAX_VERTICES] = {
         "Vale dos Números", "Ponte da Soma", "Moinho da Tabuada",
         "Biblioteca Encantada", "Jardim das Palavras", "Torre dos Verbos",
+        "Bosque das Histórias", "Rio dos Contos", "Cabana do Contador",
         "Labirinto dos Enigmas", "Portal do Dragão Sábio",
         "Castelo de Atentia", "Floresta do Esquecimento"
     };
@@ -962,10 +990,10 @@ int main() {
                 grafo.mostrarMatriz();
                 tabelaDesafios.mostrarTabela();
                 cout << "\n\tFator de carga da tabela hash de desafios: " << tabelaDesafios.fatorCarga() << "\n";
-                cout << "\n\tBusca em largura (BFS) de 0 até 8:";
-                grafo.buscaEmLarguraCaminho(0, 8);
-                cout << "\n\tBusca em profundidade (DFS) de 0 até 8:";
-                grafo.buscaEmProfundidadeCaminho(0, 8);
+                cout << "\n\tBusca em largura (BFS) de 0 até 11:";
+                grafo.buscaEmLarguraCaminho(0, 11);
+                cout << "\n\tBusca em profundidade (DFS) de 0 até 11:";
+                grafo.buscaEmProfundidadeCaminho(0, 11);
                 break;
 
             case 0:
