@@ -745,7 +745,12 @@ void jogar(Grafo &grafo, TabelaDesafios &tabelaDesafios, TabelaPoderes &tabelaPo
         string resposta = "";
         while (resposta == "") {
             cout << "\n\t" << desafio->pergunta << "\n";
-            cout << "\t(Você tem " << desafio->tempo + bonusTempo << " segundos para ganhar todos os cristais)\n";
+            int restante = desafio->tempo + bonusTempo - (int)(time(0) - inicio);
+            if (restante > 0) {
+                cout << "\t(Você tem " << restante << " segundos para ganhar todos os cristais)\n";
+            } else {
+                cout << "\t(O tempo do bônus acabou, mas você ainda pode responder!)\n";
+            }
             cout << "\n\tDigite a sua RESPOSTA e aperte ENTER.\n\t(Para usar um poder, digite P)\n\t> ";
             string entrada;
             getline(cin, entrada);
